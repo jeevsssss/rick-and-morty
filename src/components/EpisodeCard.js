@@ -8,7 +8,7 @@ const EpisodeCard = ({ name, airDate, episodeCode, characters }) => {
   useEffect(() => {
     const fetchCharacters = async () => {
       const characterData = await Promise.all(
-        characters.map(characterUrl => axios.get(characterUrl))
+        characters.slice(0, 5).map(characterUrl => axios.get(characterUrl))
       );
       const characterList = characterData.map(response => response.data);
       setCharacterList(characterList);
@@ -19,16 +19,19 @@ const EpisodeCard = ({ name, airDate, episodeCode, characters }) => {
 
   return (
     <div className="episode-card">
-      <h2>{name}</h2>
-      <p>Air Date: {airDate}</p>
-      <p>Episode: {episodeCode}</p>
-      <hr></hr>
-      <h3>Characters:</h3>
-      <ul>
-        {characterList.map(character => (
-          <li key={character.id}>{character.name}</li>
-        ))}
-      </ul>
+      <div className="episode-details">
+        <h2>{name}</h2>
+        <p>Air Date: {airDate}</p>
+        <p>Episode: {episodeCode}</p>
+      </div>
+      <div className="character-details">
+        <h3>Characters:</h3>
+        <ul>
+          {characterList.map(character => (
+            <li key={character.id}>{character.name}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

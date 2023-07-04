@@ -1,28 +1,42 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CharacterCard from './CharacterCard';
+import './character.css';
 
 const CharacterList = () => {
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
-    axios.get('https://rickandmortyapi.com/api/character')
-      .then(response=> {
-        setCharacters(response.data.results);
-      });
+    const fetchCharacters = async () => {
+      let allCharacters = [];
+      let nextPage = 'https://rickandmortyapi.com/api/character';
+
+      while (nextPage) {
+        const response = await axios.get(nextPage);
+        const { results, info } = response.data;
+
+        allCharacters = allCharacters.concat(results);
+        nextPage = info.next;
+      }
+
+      setCharacters(allCharacters);
+    };
+
+    fetchCharacters();
   }, []);
 
   return (
     <div>
-      <h1>Rick and Morty Characters</h1>
+      <div className="character-head">Rick and Morty Characters</div>
       <div className="character-list">
         {characters.map(character => (
           <CharacterCard
             key={character.id}
             name={character.name}
-            image={character.image}
             status={character.status}
             species={character.species}
+            image={character.image}
           />
         ))}
       </div>

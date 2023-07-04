@@ -15,7 +15,7 @@ const EpisodeList = () => {
 
   return (
     <div>
-      <h1>Rick and Morty Episodes</h1>
+      <div className="episode-head">Rick and Morty Episodes</div>
       <div className="episode-list">
         {episodes.map(episode => (
           <EpisodeCard

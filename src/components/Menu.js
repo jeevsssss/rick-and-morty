@@ -19,7 +19,7 @@ const Menu = () => {
         </li>
       </ul>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/"/>
         <Route path="/characters" element={<CharacterList />} />
         <Route path="/episodes" element={<EpisodeList />} />
       </Routes>
@@ -27,8 +27,6 @@ const Menu = () => {
   );
 };
 
-const Home = () => {
-  return <h1>Welcome to the Home Page</h1>;
-};
+
 
 export default Menu;
