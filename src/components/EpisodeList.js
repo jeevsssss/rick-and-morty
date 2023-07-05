@@ -7,10 +7,22 @@ const EpisodeList = () => {
   const [episodes, setEpisodes] = useState([]);
 
   useEffect(() => {
-    axios.get('https://rickandmortyapi.com/api/episode')
-      .then(response => {
-        setEpisodes(response.data.results);
-      });
+    const fetchEpisodes = async () => {
+      let allEpisodes = [];
+      let nextPage = 'https://rickandmortyapi.com/api/episode';
+
+      while (nextPage) {
+        const response = await axios.get(nextPage);
+        const { results, info } = response.data;
+
+        allEpisodes = allEpisodes.concat(results);
+        nextPage = info.next;
+      }
+
+      setEpisodes(allEpisodes);
+    };
+
+    fetchEpisodes();
   }, []);
 
   return (
