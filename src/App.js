@@ -13,7 +13,7 @@ const App = () => {
     <Router>
       <Menu />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/rick-and-morty" element={<Home />} />
         <Route path="/Clip" element={<Clip />} />
         <Route path="/characters" element={<CharacterList />} />
         <Route path="/episodes" element={<EpisodeList />} />
